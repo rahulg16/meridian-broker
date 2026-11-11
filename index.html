@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Meridian Broker</title>
+    <!-- Inline script to apply theme before React hydration prevents flash -->
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem('meridian-theme-state');
+          if (saved) {
+            const { state } = JSON.parse(saved);
+            const theme = state.theme;
+            const isDark =
+              theme === 'dark' ||
+              (theme === 'system' &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if (isDark) {
+              document.documentElement.classList.add('dark');
+            }
+          }
+        } catch (_) {
+          // If localStorage is unavailable, default to dark
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="module" src="/src/main.tsx"></script>
+</html>
